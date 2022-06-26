@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  
+
+  elastic:
+    build: ./elastic
+    volumes:
+      - ./elastic:/usr/share/elasticsearch/data:z
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: -Xms1g -Xmx1g
+      # ELASTIC PASSWORD INPUT
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      # SINGLE-NODE MODE
+      discovery.type: single-node
+    networks:
+      - elk_network
+  
+  kibana:
+    depends_on:
+      - elastic
+    build: ./kibana
+    ports:
+      - "5601:5601"
+    environment:
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+    networks:
+      - elk_network
+
+  logstash:
+    depends_on:
+      - elastic
+    build: ./logstash
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,Z
+    ports:
+      - "5044:5044"
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: -Xms512m -Xmx512m
+      LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
+    networks:
+      - elk_network
+  
+  networks:
+    elk_network:
+      driver: bridge
