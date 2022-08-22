@@ -365,3 +365,187 @@ PUT dynamic_index2/_doc/1
 	"long_text":"170"
 }
 ```
+
+#### Dynamic Template Statement
+| Statement                | Description                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| match_mapping_type       | Check the type of data and change some of them to the mapping type pre-defined |
+| match, unmatch           | If the pattern matches, if it does not match                                   |
+| match_pattern            | Adjust the parameters available in the match pattern. e.g) REGEX               |
+| path_match, path_unmatch | it is used to the pattern include ' **.** ' like path                                                                               |
+<br>
+
+### Analyzer
+- Elasticsearch uses inverted indexing to support full-text searches
+- Full-text search is performing partial search in long strings 
+- Inverted Indexing is indexing technology to analyze long strings and split them into smaller units. 
+So it is important to set Good Standard to split strings into smaller units.
+Elasticsearch has **Character Filter**, **Tokenizer**, and **Token Filter**
+Cute Dog → Character Filter(Cute Dog) → Tokenizer(Cute, Dog) → Token Filter(cute, dog) 
+
+| Term |
+| ---- |
+| cute |
+| dog  |
+
+### Inverted Indexing
+inverted Indexing is like the <mark class="hltr-green">INDEX</mark> on the back of the book.
+
+### Analyzer API 
+There are some Analyzer in Elasticsearch. 
+in this, you have to know Standard, Stop, Simple, Whitespace Analyzer
+- Stop Analyzer
+```http 
+POST _analyze
+{
+	"analyzer":"stop",
+	"text":"The 10 most loving dog breeds"
+}
+
+%% RESULT IN %%
+{
+	"tokens":[
+		{"token":"most",...},
+		{"token":"loving",...},
+		{"token":"dog",...},
+		{"token":"breeds",...}
+	]
+}
+```
+
+| Analyzer   | Description                                                                                     |
+| ---------- | ----------------------------------------------------------------------------------------------- |
+| standard   | Default Analyzer in Elasticsearch. it include Standard Tokenizer, Lowercase Filter, Stop Filter |
+| simple     | Only letters will be tokenized                                                                  |
+| whitespace | Tokens are separated by spaces.                                                                 |
+| stop       | it is similar with simple analyzer but include stop filter so the word 'the' is deleted by stop filter                                                                                                |
+
+### Tokenizer
+The tokenizer separates the string and tokenizes it. it must be included in Analyzer so we have to choose proper Tokenizer.
+
+| Tokenizer     | Description                                                                                          |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| standard      | standard analyzer uses this tokenizer. this delete '.' or ',' in strings and tokenize based on text. |
+| lowercase     | this tokenize based on text, All letters of strings be changed to lower case                         |
+| ngram         | Tokenization by dividing into N units                                                                                                     |
+| uax_url_email |it is to tokenize url or email                                                                    |
+
+- uax_url_email tokenizer
+```http
+POST _analyze
+{
+	"tokenizer":"uax_url_email",
+	"text":"email: elastic@elk-company.com"
+}
+
+%% result %%
+{
+	"tokens":[
+		{"token":"email",...},
+		{"token":"elastic@elk.company.com",...}
+	]
+}
+```
+
+### Filter 
+Analzyer combines one tokenizer and multiple filters.
+Filter is needed One Tokenizer
+```http
+POST _analyze
+{
+	"tokenizer":"standard",
+	"filter":["uppercase"],
+	"text": "The 10 most loving dog breeds."
+}
+
+%% RESULT, All Letters in the string is changed to Uppercase %%
+{
+	"tokens":[
+		{"token":"THE",...},
+		{"token":"10",...},
+		{"token":"MOST",...},
+		{"token":"LOVING",...},
+		{"token":"DOG",...},
+		{"token":"BREEDS",...}
+	]
+}
+```
+
+### Character Filter
+The character filter is placed before the tokenizer and serves to preprocess the characters.
+for example, it will be comportable that perform to change **&nbsp;** to whitespace in ***Character Filter***
+
+### Token Filter
+Token Filter applies a filter to the characters tokenized by the tokenizer.
+it can be possible to modify, add, delete to Tokens.
+
+| Filter    | Description                                                          |
+| --------- | -------------------------------------------------------------------- |
+| lowercase | Converts all characters to lowercase.                                |
+| stemmer   | it is for analyzing English grammer                                  |
+| stop      | This can remove certain words that the default filter cannot remove. | 
+
+### Custom Analyzer
+**Custom analyzer** is an analyzer that users can use by directly combining tokenizers and filters when there is no analyzer that satisfies the desired function among the built-in analyzers provided by Elasticsearch.
+
+- Create Custom Analyzer
+```http
+PUT custom_analyzer
+{
+	"settings":{
+		"analysis":{
+			"filter":{
+				"my_stopwords":{
+					"type":"stop",
+					"stopwords":["lions"]
+				}
+			},
+			"analyzer":{
+				"my_analyzer":{
+					"type":"custom",
+					"char_filter":[],
+					"tokenizer":"standard",
+					"filter":["lowercase","my_stopwords"]
+				}
+			}
+		}
+	}
+}
+```
+- TEST the Custom Analyzer
+```http
+GET custom_analyzer/_analyze
+{
+	"analyzer":"my_analyzer",
+	"text":"Cats Lions Dogs"
+}
+
+%% RESULT %%
+{
+	"tokens":{
+		{"token":"cats",...},
+		{"token":"dogs",...}
+	}
+}
+```
+
+**The order of the filters is important to get the expected result.**
+Expected results may not be obtained in the following order.
+```http
+GET custom_analyzer/_analyze
+{
+	"tokenizer":"standard",
+	"filter":["my_stopwords","lowercase"],
+	"text":"Cats Lions Dogs"
+}
+
+%% RESULT %%
+{
+	"tokens":{
+		{"token":"cats"},
+		{"token":"lions"},
+		{"token":"dogs"}
+	}
+}
+```
+
