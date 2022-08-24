@@ -1,4 +1,4 @@
-# Search
+# Elasticsearch : Search
 ---
 
 ## Elasticsearch : Search 
