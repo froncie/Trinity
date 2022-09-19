@@ -66,3 +66,68 @@ docker run {-d} --name filebeat --link elasticsearch:elasticsearch kibana:kibana
 
 in this case, -e option will show us the logs kind of error or informations.
 
+### ⚡️ Filebeat Settings
+
+✨ ignore_older
+ignore_older is the setting to read the latest file
+```yaml
+# ignore_older
+# filebeat.yml
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /usr/share/filebeat/logs/*.log
+    
+    # from 24 hours to NOW
+    ignore_older: 24h
+   
+   ...
+
+```
+
+✨ Manage Multiline
+How to handle when one log comes out on multiple lines.
+Multiline in Log file can be processed. 
+
+→ Multi Line Log
+aoo
+koo
+boo
+boo
+zoo
+boo
+
+1. pattern
+   -  Specify a pattern using a regular expression
+```yaml
+filebeat.inputs:
+- type: log
+- ...
+  multiline.pattern: '^b' # If it starts with letter 'b'
+```
+1. negate
+   - Inverts the pattern matching condition
+```yaml
+multiline.pattern: '^b'
+multiline.negate: true or false # if it is false, it will be mached with that starts with 'b'. However, it is true, t will be inversed. 
+```
+2. match
+   - before
+```yaml
+multiline.match: before
+# The order is [Match Line] - [Not match Line]
+```
+   - after
+ ```yaml
+multiline.match: after
+# The order is [Not match Line:] - [Match Line]
+```
+
+✨  Multiline Combinations
+1. negate:false, match: before
+   -  [Match Line] - [Not match Line]
+1. negate:false, match: after
+   - [Not match Line] - [Match Line]
+2. negate:true, match: before
+3. negate:true, match: after
