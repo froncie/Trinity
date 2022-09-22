@@ -1,4 +1,4 @@
-package com.capstone.mint.entity;
+package com.capstone.mint.domain.board;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
