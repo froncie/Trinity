@@ -23,9 +23,15 @@ public class BoardApiController {
         return boardService.save(requestsDto);
     }
 
-    @PutMapping("/api/board/{id}")
+    @PutMapping("/api/board/update/{id}")
         public Long update(@PathVariable Long id, @RequestBody BoardUpdateRequestDto requestDto) {
             return boardService.update(id, requestDto);
+    }
+
+    @DeleteMapping("/api/board/delete/{id}")
+    public Long delete(@PathVariable Long id) {
+        boardService.delete(id);
+        return id;
     }
 
     @GetMapping("/api/board/{id}")
