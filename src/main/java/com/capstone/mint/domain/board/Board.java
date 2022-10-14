@@ -1,5 +1,6 @@
-package com.capstone.mint.entity;
+package com.capstone.mint.domain.board;
 
+import com.capstone.mint.domain.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter @ToString
-public class Board {
+public class Board extends BaseTimeEntity {
 
     @Id // Primary Key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +34,17 @@ public class Board {
 
     @Column (name = "board_deletedate", nullable = true)
     private LocalDateTime board_deletedate;
+
+    @Builder
+    public Board(String board_title, String board_content, String board_writer) {
+        this.board_title = board_title;
+        this.board_content = board_content;
+        this.board_writer = board_writer;
+    }
+
+    public void update(String board_title, String board_content) {
+        this.board_title = board_title;
+        this.board_content = board_content;
+    }
 
 }
