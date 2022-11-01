@@ -7,6 +7,7 @@ build/
 
 ### ELK ###
 .DS_Store
+.crt
 
 ### STS ###
 .apt_generated
