@@ -4,6 +4,9 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import Qna from './Qna';
 import Home from "./Home";
+import Reg from "./Register";
+import List from "./List";
+import Write from "./Write";
 
 function Nav(){
     return <>    
@@ -32,14 +35,17 @@ function Nav(){
                     <li class="nav-item" style={{paddingRight:'30px', paddingLeft:'20px'}}>
                         <a class="nav-link active" aria-current="page" href="/home">Home</a>
                     </li>
-                    <li class="nav-item" style={{paddingRight:'30px'}}>
-                        <a class="nav-link" href="/login">Log-in</a>
+                    <li class="nav-item" style={{paddingRight:'30px'}} >
+                        <a class="nav-link" href="/login" >Log-in</a>
                     </li>
                     <li class="nav-item" style={{paddingRight:'30px'}}>
-                        <a class="nav-link" href="/qna">QnA 게시판</a>
+                        <a class="nav-link" href="/write" >QnA 글쓰기</a>
+                    </li>
+                    <li class="nav-item" style={{paddingRight:'30px'}}>
+                        <a class="nav-link" href="/list" >QnA 목록</a>
                     </li>
                     <li class="nav-item dropdown" style={{paddingRight:'30px'}}>
-                        <a class="nav-link dropdown-toggle" href="#"  data-bs-toggle="dropdown" aria-expanded="false">회원가입</a>
+                        <a class="nav-link dropdown-toggle" href="/register"  data-bs-toggle="dropdown" aria-expanded="false">회원가입</a>
                         <ul class="dropdown-menu" >
                             <li><a class="dropdown-item" href="#">계정 만들기</a></li>
                             <li><a class="dropdown-item" href="#">아이디/비밀번호 찾기</a></li>
@@ -69,6 +75,9 @@ function Nav(){
             <Route path="/login" element={<Login />} />
             <Route path="/qna" element={<Qna/>} />
             <Route path="/home" element={<Home/>} />
+	<Route path="/register" element={<Reg />} />
+    <Route path="/list" element={<List/>}/>
+    <Route path="/write" element={<Write/>}/>
 
     </Routes></>
 
