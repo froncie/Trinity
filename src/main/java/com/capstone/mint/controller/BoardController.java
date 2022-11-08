@@ -1,7 +1,7 @@
 package com.capstone.mint.controller;
 
-import com.capstone.mint.entity.Board;
-import com.capstone.mint.entity.BoardRepository;
+import com.capstone.mint.domain.board.Board;
+import com.capstone.mint.domain.board.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

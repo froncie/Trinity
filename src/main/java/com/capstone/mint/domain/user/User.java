@@ -2,10 +2,7 @@ package com.capstone.mint.domain.user;
 
 
 import com.capstone.mint.domain.BaseTimeEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import com.capstone.mint.domain.user.Role;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,55 +10,47 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Getter
-@NoArgsConstructor
 @Entity
-public class User extends BaseTimeEntity implements UserDetails {
+@Table (name = "user")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter @Setter @ToString
+public class User implements UserDetails {
 
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "user_name", nullable = false)
+    private String user_name;
 
-    @Column(nullable = false)
-    private String email;
+    @Column(name = "user_email",nullable = false)
+    private String user_email;
 
-    @Column(nullable = false)
-    private String pwd;
-
-    @Column
-    private String picture;
+    @Column(name = "user_pwd",nullable = false)
+    private String user_pwd;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+    @Column(name = "user_role",nullable = false)
+    private Role user_role;
 
-    @Builder
-    public User(String name, String email, String pwd, String picture, Role role) {
-        this.name = name;
-        this.email = email;
-        this.pwd = pwd;
-        this.picture = picture;
-        this.role = role;
-    }
-
-    public User update(String name, String picture) {
-        this.name = name;
-        this.picture = picture;
+    public User update(String name, String email, String pwd) {
+        this.user_name = name;
+        this.user_email = email;
+        this.user_pwd = pwd;
 
         return this;
     }
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.user_email;
     }
 
     @Override
     public String getPassword() {
-        return this.pwd;
+        return this.user_pwd;
     }
 
     // 계정이 갖고있는 권한 목록 반환
@@ -99,7 +88,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     }
 
     public String getRoleKey() {
-        return this.role.getKey();
+        return this.user_role.getKey();
     }
 
 }
