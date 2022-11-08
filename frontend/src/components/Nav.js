@@ -11,7 +11,7 @@ import Write from "./Write";
 
 
 function Nav(){
-    return <>    
+    return <>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -46,14 +46,11 @@ function Nav(){
                     </li>
                     <li class="nav-item" style={{paddingRight:'30px'}}>
                         <a class="nav-link" href="/list" >QnA 목록</a>
-
+                    </li>
                     <li class="nav-item" style={{paddingRight:'30px'}}>
                         <a class="nav-link" href="/login">Log-in</a>
                     </li>
-                    <li class="nav-item" style={{paddingRight:'30px'}}>
-                        <a class="nav-link" href="/qna">QnA 게시판</a>
-
-                    </li>
+                 
                     <li class="nav-item dropdown" style={{paddingRight:'30px'}}>
                         <a class="nav-link dropdown-toggle" href="/register"  data-bs-toggle="dropdown" aria-expanded="false">회원가입</a>
                         <ul class="dropdown-menu" >
@@ -81,6 +78,7 @@ function Nav(){
             </div>
         </div>
     </nav>
+
     <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/qna" element={<Qna/>} />
