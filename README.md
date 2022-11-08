@@ -1,1 +1,1 @@
-# Trinity - Web Application with ELK Stack
+# Trinity - Centralized loggin system and response service using Elastic Stack
