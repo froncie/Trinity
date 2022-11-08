@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()// csrf 토큰 비활성화
                 .authorizeRequests() // URL별 권한 관리 설정
                     .antMatchers("/", "/login/**", "/js/**", "/css/**", "/image/**").permitAll() // 접근 허용
-                    .antMatchers("/api/**").hasRole(Role.USER.getKey()) // /api/** 주소를 가진 API는 USER권한 이상
+                    .antMatchers("/api/**").hasRole("USER") // /api/** 주소를 가진 API는 USER권한 이상
                     .anyRequest().authenticated() // 설정된 값 이외 나머지 URL은 인증된 사용자만 허용
                 .and()
                 .formLogin()

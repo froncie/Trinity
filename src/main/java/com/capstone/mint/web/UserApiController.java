@@ -1,12 +1,14 @@
 package com.capstone.mint.web;
 
 import com.capstone.mint.service.UserService;
-import com.capstone.mint.web.dto.BoardUpdateRequestDto;
+import com.capstone.mint.web.dto.UserListResponseDto;
 import com.capstone.mint.web.dto.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,5 +30,11 @@ public class UserApiController {
     @PutMapping("/api/user/update/{id}")
     public Long update(@PathVariable Long id, @RequestBody UserUpdateRequestDto requestDto) {
         return userService.update(id, requestDto);
+    }
+
+    @GetMapping("/api/user/all")
+    public List<UserListResponseDto> allUser(){
+        List<UserListResponseDto> userList = userService.findAllUser();
+        return userList;
     }
 }
