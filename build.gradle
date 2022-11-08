@@ -19,28 +19,27 @@ repositories {
 }
 
 dependencies {
-	// WEB
+// WEB
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
 	// JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	compileOnly 'com.h2database:h2'
+
 	// LOMBOK
-	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	// MARIADB
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.5'
 
-<<<<<<< HEAD
+	// DB
+	implementation 'org.mariadb.jdbc:mariadb-java-client'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'com.h2database:h2'
+
 	// SPRING SECURITY
-	compileOnly 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	compileOnly 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.session:spring-session-jdbc'
 
-=======
->>>>>>> ba4d2b82c7ef9ce426a65f714e74eb560250399a
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 }
 
 tasks.named('test') {

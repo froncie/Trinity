@@ -1,7 +1,6 @@
 package com.capstone.mint.web;
 
 import com.capstone.mint.domain.board.Board;
-import com.capstone.mint.domain.board.BoardRepository;
 import com.capstone.mint.service.BoardService;
 import com.capstone.mint.web.dto.BoardResponseDto;
 import com.capstone.mint.web.dto.BoardSaveRequestsDto;

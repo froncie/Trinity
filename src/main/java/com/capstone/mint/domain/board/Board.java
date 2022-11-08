@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class Board extends BaseTimeEntity {
 
     @Id // Primary Key
+    @Column(name = "board_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long board_id;
 
