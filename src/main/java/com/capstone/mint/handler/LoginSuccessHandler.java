@@ -1,6 +1,5 @@
 package com.capstone.mint.handler;
 
-import com.capstone.mint.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -16,15 +15,12 @@ import java.time.LocalDateTime;
 @Component
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private final UserRepository userRepository;
-
     @Override
     public void onAuthenticationSuccess(
             HttpServletRequest request,
             HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
 
-        userRepository.updateUserLastLogin(authentication.getName(), LocalDateTime.now());
         setDefaultTargetUrl("board/list"); // 메인페이지 url로 수정 예정
 
         super.onAuthenticationSuccess(request, response, authentication);

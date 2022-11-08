@@ -1,12 +1,12 @@
 package com.capstone.mint.web;
 
 import com.capstone.mint.service.UserService;
+import com.capstone.mint.web.dto.BoardUpdateRequestDto;
+import com.capstone.mint.web.dto.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -23,7 +23,10 @@ public class UserApiController {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "/member/login";
-
     }
 
+    @PutMapping("/api/user/update/{id}")
+    public Long update(@PathVariable Long id, @RequestBody UserUpdateRequestDto requestDto) {
+        return userService.update(id, requestDto);
+    }
 }

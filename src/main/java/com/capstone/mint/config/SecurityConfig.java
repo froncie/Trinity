@@ -3,7 +3,6 @@ package com.capstone.mint.config;
 import com.capstone.mint.domain.user.Role;
 import com.capstone.mint.handler.LoginFailureHandler;
 import com.capstone.mint.handler.LoginSuccessHandler;
-import com.capstone.mint.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,22 +17,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
-// @EnableGlobalMethodSecurity (prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
     private final LoginSuccessHandler loginSuccessHandler;
     private final LoginFailureHandler loginFailureHandler;
 
     @Bean
-    public BCryptPasswordEncoder cryptPasswordEncoder() {
+    public BCryptPasswordEncoder encoderPwd() {
         return new BCryptPasswordEncoder();
-    }
-
-    // 시큐리가 로그인 과정에서 password를 가로챌 때 해당 해쉬로 암호화해서 비교한다.
-    @Override
-    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(cryptPasswordEncoder());
     }
 
     @Override
@@ -42,10 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()// csrf 토큰 비활성화
                 .authorizeRequests() // URL별 권한 관리 설정
                     .antMatchers("/", "/login/**", "/js/**", "/css/**", "/image/**").permitAll() // 접근 허용
-                    .antMatchers("/api/**").hasRole(Role.USER.name()) // /api/** 주소를 가진 API는 USER권한 이상
+                    .antMatchers("/api/**").hasRole(Role.USER.getKey()) // /api/** 주소를 가진 API는 USER권한 이상
                     .anyRequest().authenticated() // 설정된 값 이외 나머지 URL은 인증된 사용자만 허용
                 .and()
-                    .formLogin()
+                .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login/action") // 해당 URL로 요청이 오면 스프링 시큐리티가 가로채서 처리 -> loadUserByName
                     .successHandler(loginSuccessHandler) // 로그인 성공 시 요청 처리할 핸들러
