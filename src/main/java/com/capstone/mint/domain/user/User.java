@@ -1,7 +1,6 @@
 package com.capstone.mint.domain.user;
 
 
-import com.capstone.mint.domain.BaseTimeEntity;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,37 +19,37 @@ public class User implements UserDetails {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "user_name", nullable = false)
-    private String user_name;
+    private String userName;
 
     @Column(name = "user_email",nullable = false)
-    private String user_email;
+    private String userEmail;
 
     @Column(name = "user_pwd",nullable = false)
-    private String user_pwd;
+    private String userPwd;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role",nullable = false)
-    private Role user_role;
+    private Role userRole;
 
     public User update(String name, String email, String pwd) {
-        this.user_name = name;
-        this.user_email = email;
-        this.user_pwd = pwd;
+        this.userName = name;
+        this.userEmail = email;
+        this.userPwd = pwd;
 
         return this;
     }
 
     @Override
     public String getUsername() {
-        return this.user_email;
+        return this.userEmail;
     }
 
     @Override
     public String getPassword() {
-        return this.user_pwd;
+        return this.userPwd;
     }
 
     // 계정이 갖고있는 권한 목록 반환
@@ -81,14 +80,14 @@ public class User implements UserDetails {
         return true;
     }
 
-    // 계정이 사용 가능한지 반 (true : 활성화)
+    // 계정이 사용 가능한지 반환 (true : 활성화)
     @Override
     public boolean isEnabled() {
         return true;
     }
 
     public String getRoleKey() {
-        return this.user_role.getKey();
+        return this.userRole.getKey();
     }
 
 }
