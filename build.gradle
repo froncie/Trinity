@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-// WEB
+	// WEB
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	// JPA
@@ -40,8 +40,4 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-jdbc'
 
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
 }
