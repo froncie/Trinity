@@ -7,15 +7,15 @@ import lombok.Getter;
 @Getter
 public class UserListResponseDto {
 
-    private Long id;
-    private String name;
-    private String email;
-    private Role role;
+    private Long userId;
+    private String userName;
+    private String userEmail;
+    private Role userRole;
 
     public UserListResponseDto(User entity) {
-        this.id = entity.getUserId();
-        this.name = entity.getUsername();
-        this.email = entity.getUserEmail();
-        this.role = entity.getUserRole();
+        this.userId = entity.getUserId();
+        this.userName = entity.getUserName();
+        this.userEmail = entity.getUserEmail();
+        this.userRole = entity.getUserRole();
     }
 }

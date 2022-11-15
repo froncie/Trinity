@@ -12,9 +12,9 @@ import java.util.Collection;
 @Entity
 @Table (name = "user")
 @NoArgsConstructor
-@AllArgsConstructor
-@Getter @Setter @ToString
-public class User implements UserDetails {
+@Builder
+@Getter
+public class User {
 
     @Id
     @Column(name = "user_id")
@@ -34,60 +34,22 @@ public class User implements UserDetails {
     @Column(name = "user_role",nullable = false)
     private Role userRole;
 
-    public User update(String name, String email, String pwd) {
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
+    }
+
+    public User nameUpdate(String name, String email) {
         this.userName = name;
         this.userEmail = email;
-        this.userPwd = pwd;
 
         return this;
     }
-
-    @Override
-    public String getUsername() {
-        return this.userEmail;
+    @Builder
+    public User(Long userId, String userName, String userEmail, String userPwd, Role userRole) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPwd = userPwd;
+        this.userRole = userRole;
     }
-
-    @Override
-    public String getPassword() {
-        return this.userPwd;
-    }
-
-    // 계정이 갖고있는 권한 목록 반환
-    @Override
-    public Collection <? extends GrantedAuthority> getAuthorities() {
-        Collection <GrantedAuthority> collectors = new ArrayList<>();
-        collectors.add(() -> {
-            return "계정별 등록할 권한";
-        });
-        return collectors;
-    }
-
-    // 계정이 만료되지 않았는지 반환 (true : 만료 안됨)
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    // 계정이 잠겨있는지 않았는지 반환 (true : 잠기지 않음)
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    // 비밀번호가 만료되지 않았는지 반환 (true : 만료 안됨)
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    // 계정이 사용 가능한지 반환 (true : 활성화)
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public String getRoleKey() {
-        return this.userRole.getKey();
-    }
-
 }

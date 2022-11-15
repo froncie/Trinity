@@ -1,35 +1,28 @@
 package com.capstone.mint.web;
 
+import java.lang.Long;
 import com.capstone.mint.service.UserService;
-import com.capstone.mint.web.dto.UserListResponseDto;
-import com.capstone.mint.web.dto.UserUpdateRequestDto;
+import com.capstone.mint.web.dto.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserApiController {
 
     private final UserService userService;
 
-    // 로그인 페이지 매핑, 실패나 예외 처리 값을 model에 반환
-    @GetMapping("/login")
-    public String getLoginPage(Model model,
-            @RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "exception", required = false) String exception) {
-
-        model.addAttribute("error", error);
-        model.addAttribute("exception", exception);
-        return "/member/login";
+    @PostMapping("/api/user/nameUpdate/{id}")
+    public ResponseEntity<UserResponseDto> nameUpdate(@PathVariable Long id, @RequestBody UserRequestDto requestDto) {
+        return ResponseEntity.ok(userService.nameUpdate(id, requestDto.getUserName(), requestDto.getUserEmail()));
     }
 
-    @PutMapping("/api/user/update/{id}")
-    public Long update(@PathVariable Long id, @RequestBody UserUpdateRequestDto requestDto) {
-        return userService.update(id, requestDto);
+    @PostMapping("/api/user/pwdUpdate")
+    public ResponseEntity<UserResponseDto> pwdUpdate(@RequestBody ChangePasswordRequestDto requestDto) {
+        return ResponseEntity.ok(userService.pwdUpdate(requestDto.getUserEmail(), requestDto.getExPassword(), requestDto.getNewPassword()));
     }
 
     @GetMapping("/api/user/all")

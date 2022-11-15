@@ -2,6 +2,7 @@ package com.capstone.mint.web;
 
 import com.capstone.mint.domain.board.Board;
 import com.capstone.mint.service.BoardService;
+import com.capstone.mint.web.dto.BoardListResponseDto;
 import com.capstone.mint.web.dto.BoardResponseDto;
 import com.capstone.mint.web.dto.BoardSaveRequestsDto;
 import com.capstone.mint.web.dto.BoardUpdateRequestDto;
@@ -16,6 +17,12 @@ import java.util.List;
 public class BoardApiController {
 
     private final BoardService boardService;
+
+    @GetMapping("/api/board/all")
+    public List<BoardListResponseDto> allBoardList() {
+        List<BoardListResponseDto> allBoardList = boardService.findAllDesc();
+        return allBoardList;
+    }
 
     @PostMapping("/api/board/save")
     public Long save(@RequestBody BoardSaveRequestsDto requestsDto) {
