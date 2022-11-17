@@ -33,26 +33,22 @@ function Nav(){
             </button>
 
             <div class="collapse navbar-collapse" id="navbarsExample06">
-                <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-                    <li class="nav-item" style={{paddingRight:'30px', paddingLeft:'20px'}}>
-                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                <ul class="navbar-nav me-auto mb-2 mb-xl-0" style={{width:'100%'}} >
+                    <li class="nav-item" >
+                        <a class="nav-link active" aria-current="page" href="/home" style={{height:'40px', }}>Home</a>
                     </li>
 
-                    <li class="nav-item" style={{paddingRight:'30px'}} >
-                        <a class="nav-link" href="/login" >Log-in</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login" style={{height:'40px', width:"63px"}}>Log-in</a>
                     </li>
-                    <li class="nav-item" style={{paddingRight:'30px'}}>
-                        <a class="nav-link" href="/write" >QnA 글쓰기</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/write" style={{height:'40px', width:'94px'}} >QnA 글쓰기</a>
                     </li>
-                    <li class="nav-item" style={{paddingRight:'30px'}}>
-                        <a class="nav-link" href="/list" >QnA 목록</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/list" tyle={{height:'40px', width:'79px'}}>QnA 목록</a>
                     </li>
-                    <li class="nav-item" style={{paddingRight:'30px'}}>
-                        <a class="nav-link" href="/login">Log-in</a>
-                    </li>
-                 
-                    <li class="nav-item dropdown" style={{paddingRight:'30px'}}>
-                        <a class="nav-link dropdown-toggle" href="/register"  data-bs-toggle="dropdown" aria-expanded="false">회원가입</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/register"  data-bs-toggle="dropdown" aria-expanded="false" tyle={{height:'40px', width:'84px'}}>회원가입</a>
                         <ul class="dropdown-menu" >
                             <li><a class="dropdown-item" href="#">계정 만들기</a></li>
                             <li><a class="dropdown-item" href="#">아이디/비밀번호 찾기</a></li>
@@ -60,17 +56,17 @@ function Nav(){
                         </ul>
                     </li>
                 </ul>
-                <form role="search" style={{paddingLeft:'500px'}}>
+                <form role="search" style={{width:"500px"}}>
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
                 </form>
                 <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-                <li class="nav-item" style={{paddingRight:'10px', paddingLeft:'20px'}}>
+                <li class="nav-item" style={{}}>
                         <a class="nav-link" href="#">English</a>
                 </li>
-                <li class="nav-item" style={{paddingRight:'10px'}}>
+                <li class="nav-item" style={{}}>
                         <a class="nav-link" href="#">|</a>
                 </li>
-                <li class="nav-item" style={{paddingRight:'30px'}}>
+                <li class="nav-item" style={{}}>
                         <a class="nav-link" href="#">Korean</a>
                 </li>
                 </ul>
