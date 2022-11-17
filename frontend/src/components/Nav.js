@@ -42,7 +42,7 @@ function Nav(){
                         <a class="nav-link" href="/login" style={{height:'40px', width:"63px"}}>Log-in</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/write" style={{height:'40px', width:'94px'}} >QnA 글쓰기</a>
+                        <a class="nav-link" href="/write" style={{height:'40px', width:'97px'}} >QnA 글쓰기</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/list" tyle={{height:'40px', width:'79px'}}>QnA 목록</a>
