@@ -5,7 +5,7 @@ function Header(){
     <header>
     <div id="header-info">
       <div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
-        <h2 id="logo" style={{textAlign:"center"}}>Web Hacking Site</h2>
+        <h2 id="logo" style={{textAlign:"center"}}>Trinity Web</h2>
       </div>
     </div>
   </header>
