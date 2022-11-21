@@ -3,9 +3,9 @@ package com.capstone.mint.config;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class SecurityUtil {
+public class SecurityUtilConfig {
 
-    private SecurityUtil() { }
+    private SecurityUtilConfig() { }
 
     public static Long getCurrentUserId() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

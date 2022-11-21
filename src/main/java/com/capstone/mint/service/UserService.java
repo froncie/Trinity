@@ -1,13 +1,11 @@
 package com.capstone.mint.service;
 
-import com.capstone.mint.config.SecurityUtil;
+import com.capstone.mint.config.SecurityUtilConfig;
 import com.capstone.mint.domain.user.User;
 import com.capstone.mint.domain.user.UserRepository;
 import com.capstone.mint.web.dto.UserListResponseDto;
 import com.capstone.mint.web.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.mapping.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +26,7 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto getMyInfoBySecurity() {
-        return userRepository.findById(SecurityUtil.getCurrentUserId())
+        return userRepository.findById(SecurityUtilConfig.getCurrentUserId())
                 .map(UserResponseDto::of)
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
@@ -44,7 +42,7 @@ public class UserService implements UserDetailsService {
     // TOKEN을 토대로 USER를 찾아 제시된 예전 패스워드와 DB를 비교한다.
     @Transactional
     public UserResponseDto pwdUpdate(String email, String exPassword, String newPassword) {
-        User user = userRepository.findById(SecurityUtil.getCurrentUserId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
+        User user = userRepository.findById(SecurityUtilConfig.getCurrentUserId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
         if (!passwordEncoder.matches(exPassword, user.getUserPwd())) {
             throw new RuntimeException("비밀번호가 맞지 않습니다");
         }

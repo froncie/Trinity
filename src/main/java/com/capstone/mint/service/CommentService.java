@@ -1,6 +1,6 @@
 package com.capstone.mint.service;
 
-import com.capstone.mint.config.SecurityUtil;
+import com.capstone.mint.config.SecurityUtilConfig;
 import com.capstone.mint.domain.comment.Comment;
 import com.capstone.mint.domain.comment.CommentRepository;
 import com.capstone.mint.domain.post.Post;
@@ -61,7 +61,7 @@ public class CommentService {
 
     @Transactional
     public CommentResponseDto createComment(Long id, String text) {
-        User user = userRepository.findById(SecurityUtil.getCurrentUserId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+        User user = userRepository.findById(SecurityUtilConfig.getCurrentUserId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("댓글이 없습니다."));
 
         Comment comment = Comment.builder()
@@ -75,7 +75,7 @@ public class CommentService {
 
     @Transactional
     public void removeComment(Long id) {
-        User user = userRepository.findById(SecurityUtil.getCurrentUserId()).orElseThrow(() -> new RuntimeException("로그인 하세요."));
+        User user = userRepository.findById(SecurityUtilConfig.getCurrentUserId()).orElseThrow(() -> new RuntimeException("로그인 하세요."));
         Comment comment = commentRepository.findById(id).orElseThrow(() -> new RuntimeException("댓글이 없습니다."));
         if (!comment.getUser().equals(user)) {
             throw new RuntimeException("작성자와 로그인이 일치하지 않습니다.");

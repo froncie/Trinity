@@ -1,6 +1,6 @@
 package com.capstone.mint.service;
 
-import com.capstone.mint.config.SecurityUtil;
+import com.capstone.mint.config.SecurityUtilConfig;
 import com.capstone.mint.domain.post.Post;
 import com.capstone.mint.domain.post.PostRepository;
 import com.capstone.mint.domain.user.User;
@@ -71,7 +71,7 @@ public class PostService {
     } // allPost
 
     public User isUserCurrent() {
-        return userRepository.findById(SecurityUtil.getCurrentUserId())
+        return userRepository.findById(SecurityUtilConfig.getCurrentUserId())
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
 
