@@ -41,5 +41,6 @@ out/
 ### VS Code ###
 .vscode/
 
-### APPLICATION.YML ###
+### YML ###
 /src/main/resources/application.yml
+/.travis.yml
