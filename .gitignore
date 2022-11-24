@@ -41,4 +41,6 @@ out/
 ### VS Code ###
 .vscode/
 
-### DB LoginInfo ###
+### YML ###
+/src/main/resources/application.yml
+/.travis.yml
