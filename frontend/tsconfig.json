@@ -1,0 +1,8 @@
+{
+    "compilerOptions":{
+    "module": "es6",
+    "types":["node"] , 
+    "typeRoodts":["node_modules/@types"]
+    
+}
+  }
