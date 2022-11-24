@@ -43,4 +43,3 @@ out/
 
 ### YML ###
 /src/main/resources/application.yml
-/.travis.yml
