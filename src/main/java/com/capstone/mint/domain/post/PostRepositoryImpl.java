@@ -1,7 +1,6 @@
 package com.capstone.mint.domain.post;
 
 import com.capstone.mint.web.dto.PageResponseDto;
-import com.capstone.mint.domain.post.Post;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static  com.capstone.mint.domain.post.QPost.post;
+import static com.capstone.mint.domain.post.QPost.post;
 
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepositoryCustom{

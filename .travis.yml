@@ -1,17 +1,40 @@
 language: java
+
 jdk:
   - openjdk17
+
 branches:
   only:
     - main
+
 before_install:
   - chmod +x gradlew
+
 # Travis CI 서버의 HOME
 cache:
   directories:
     -'$HOME/.m2/repository'
     -'$HOME/.gradle'
+
 script: "./gradlew clean build"
+
+before_deploy:
+  - zip -r trinity-springboot-webservice
+  - mkdir -p deploy
+  - mv trinity-springboot-webservice.zip deploy/trinity-springboot-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: trinity-springboot-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+
 # CI 완료 시 알람
 notification:
   slack: eORBvFe9RisCC/UVxcjEVWM7u7I2dp9yVrS0snllGKyHAGWvtYQ2hEVidbTf2KnJZZZ5Js3vrXnHGc/WDgPOiTuAk4wJpsBysHkSXa9SD+fAYuU8K0hWOPVFL7a945qTfUGIaBjiaDeDWbX24d6m0Rc3/qbhkGwZRYH8IRSXCIV3c6JlZlX4HsOnDqpuDT/58ZMPOx9HmDwgfp9wKlI0Hb9dhF6hqCHo2R9Xvt8kezctjGo3HZBkUyXFm/mL1nTE5aB4+2lq81YF9B5A2pfbMeek+2J7htVQdlUwQ6yYdLsPQuKpn2qToJCk6N+/XQKmWuvWkpT3BBFCBs8g+ZtZbB6LmswU9HzfQRVja9fr0l/H3XIhSWBQGMWSMq+DN5+vHGxymtWAJONftwp8bjexhWnXfaWpwwPA+iyjWOMOKqQr6xvdfa6srTg97PoD+Fj4QF5/fEDU8AuKjD/0w6H71FXE3ykgYBOoLJFw7LobzCmaPOTOKXh3Xz7K0H6ZiQnGPUpt5h9DiSe98YkNfysCm8RTf+6lBfUB77pd4FCFD6YfcOJ1GgtmzlF/tTDfJriS89V1V4uMWDbYLvo3I449PYGvFxtr/DJmTFnc3TsnGW/FDZuohNRbjFabFGqURyuf9t+POV8Ynaz4XvNsJZ66krbmLE0wOhktgPUsKzdxGRQ=
+
