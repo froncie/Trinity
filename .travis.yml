@@ -47,5 +47,5 @@ deploy:
 
 
 # CI 완료 시 알람
-notification:
+notifications:
   slack: $SLACK_NOTIFICATION_KEY
