@@ -1,13 +1,10 @@
 import React from 'react';
-import {Routes, Route, Link} from 'react-router-dom';
 import Header from './components/Header'
 import Nav from './components/Nav'
-import Qna from './components/Qna'
-import Reg from './components/Register'
 
 function App() {
   return (
-    <div className="App">
+    <div class="App">
       <Header/>
       <hr></hr>
       <Nav></Nav>

@@ -41,15 +41,5 @@
   },
   "devDependencies": {
     "typescript": "^4.9.3"
-  },
-   
-    "compilerOptions":{
-      "module": "node",
-      "types":["node"] , 
-      "typeRoodts":["node_modules/@types"]
-      
-      
-    }
   }
-  
-
+}

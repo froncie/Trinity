@@ -1,7 +1,6 @@
 package com.capstone.mint.domain.post;
 
 import com.capstone.mint.web.dto.PageResponseDto;
-import com.capstone.mint.domain.post.Post;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
