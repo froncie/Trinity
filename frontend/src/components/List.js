@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Qna from "./Qna";
 
 function List(){
+  test()
      return<Fragment>
         <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
 
