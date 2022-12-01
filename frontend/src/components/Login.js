@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useState } from 'react';
 import axios from "axios";
 
@@ -20,16 +20,17 @@ function Login(){
         console.log("Password: ", password);
         axios.post(
             "http://localhost:8080/auth/login", {
-                email: username,
-                password: password
+                userEmail: username,
+                userPwd: password
             })
             .then((res) => {
                 console.log(res);
-                sessionStorage.setItem("uid", username);
-                sessionStorage.setItem("name", res.data.name);
+                sessionStorage.setItem("username", username)
+                sessionStorage.setItem("accessToken", res.data.accessToken);
+                sessionStorage.setItem("tokenExpiresIn", res.data.tokenExpiresIn);
+                document.location.href = "/";
             }).catch();
     };
-
     return <Fragment>
 <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
     <div class="container">
