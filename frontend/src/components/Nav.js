@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Login from "./Login";
@@ -9,18 +9,22 @@ import Reg from "./Register";
 import List from "./List";
 import Write from "./Write";
 
-
 function Nav(){
-    // const [search, setSearch] = useState('');
-
-    // const onChangeSearch = (e) => {
-    //     setSearch(e.target.value)
+    const [username,setUsername] = useState('');
+    const [isLogin, setIsLogin] = useState(false)
+    useEffect(() => {
+        if (sessionStorage.getItem("accessToken") === null) {
+        // sessionStorage 에 name 라는 key 값으로 저장된 값이 없다면
+        console.log("isLogin ?? :: ", isLogin);
+        } else {
+        // sessionStorage 에 name 라는 key 값으로 저장된 값이 있다면
+        // 로그인 상태 변경
+        setIsLogin(true);
+        setUsername(sessionStorage.getItem("username"));
         
-    // }
-    const onSubmit = () => {
-        const words = document.getElementById('words').value;
-        document.createElement("<span>"+words+"/span>");
-    }
+        var loginPage = document.getElementsByClassName("loginPage");
+        }
+    });
     return <>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -47,7 +51,7 @@ function Nav(){
                         <a class="nav-link active" aria-current="page" href="/home" style={{height:'40px', }}>Home</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item loginPage">
                         <a class="nav-link" href="/login" style={{height:'40px', width:"63px"}}>Log-in</a>
                     </li>
                     <li class="nav-item">
@@ -65,10 +69,11 @@ function Nav(){
                         </ul>
                     </li>
                 </ul>
-                <form style={{width:"400px", display:"flex"}}>
-                    <input id="words" class="form-control" type="text" placeholder="Search" aria-label="Search" style={{width:"500px"}}/> 
-                </form>
-                <button class="btn btn-secondary" style={{marginLeft:"5px", marginRight:"5px"}} onClick={onSubmit}>search</button>
+                <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+                <li class="nav-item" style={{color:'white'}}>
+                    {username}
+                </li>
+                </ul>
                 <ul class="navbar-nav me-auto mb-2 mb-xl-0">
                 <li class="nav-item" style={{}}>
                         <a class="nav-link" href="#">English</a>

@@ -15,9 +15,7 @@ cache:
   directories:
     -'$HOME/.m2/repository'
     -'$HOME/.gradle'
-<<<<<<< HEAD
 script: "./gradlew build --stacktrace"
-=======
 
 script: "./gradlew clean build"
 
