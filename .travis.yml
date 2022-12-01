@@ -17,7 +17,7 @@ cache:
     -'$HOME/.gradle'
 script: "./gradlew build --stacktrace"
 
-script: "./gradlew clean build"
+script: "./gradlew build --stacktrace"
 
 before_deploy:
   - zip -r trinity-springboot-webservice
