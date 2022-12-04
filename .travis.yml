@@ -13,10 +13,10 @@ before_install:
 # Travis CI 서버의 HOME
 cache:
   directories:
-    -'$HOME/.m2/repository'
-    -'$HOME/.gradle'
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
 
-script: "./gradlew build --stacktrace"
+script: "./gradlew clean build"
 
 before_deploy:
   - mkdir -p before-deploy # zip 디렉터리에 포함시킬 파일들을 담음 디렉터리 생성
