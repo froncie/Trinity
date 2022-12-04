@@ -15,20 +15,22 @@ cache:
   directories:
     -'$HOME/.m2/repository'
     -'$HOME/.gradle'
-script: "./gradlew build --stacktrace"
 
 script: "./gradlew build --stacktrace"
 
 before_deploy:
-  - zip -r trinity-springboot-webservice
-  - mkdir -p deploy
-  - mv trinity-springboot-webservice.zip deploy/trinity-springboot-webservice.zip
+  - mkdir -p before-deploy # zip 디렉터리에 포함시킬 파일들을 담음 디렉터리 생성
+  - cp scripts/*.sh before-deploy/
+  - cp build/libs/*.jar before-deploy/
+  - cd before-deploy && zip -r before-deploy * # before-deploy 이동 후 전체 압축
+  - cd ../ && mkdir -p deploy # 상위 디렉터리로 이동 후 deploy 디렉터리 생성
+  - mv before-deploy/before-deploy.zip deploy/trinity-springboot-webservice.zip # deploy로 zip 이동
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-    bucket: trinity-springboot-build
+    bucket: trinity-springboot-build # S3 버킷
     region: ap-northeast-2
     skip_cleanup: true
     acl: private
@@ -38,16 +40,14 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-    bucket: trinity-springboot-build
+    bucket: trinity-springboot-build # S3 버킷
     key: trinity-springboot-webservice.zip
     bundle_type: zip
-    application: trinity-springboot-webservice
-    deployment_group: trinity-springboot-webservice-group
+    application: trinity-springboot-webservice # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+    deployment_group: trinity-springboot-webservice-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
     region: ap-northeast-2
     wait_until_deployed: true
 
-
->>>>>>> refs/remotes/origin/main
-# CI 완료 시 알람
+# CI 실행 완료 시 슬랙 알람
 notifications:
   slack: $SLACK_NOTIFICATION_KEY
