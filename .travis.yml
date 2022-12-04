@@ -37,7 +37,8 @@ deploy:
     local_dir: deploy
     wait_until_deployed: true
     on:
-      all_branches: true
+      branch:
+        - main
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
