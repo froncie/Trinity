@@ -6,7 +6,7 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ec2-user/app/zip
+    destination: /home/ec2-user/app/zip/
     overwrite: yes
 
 permissions:

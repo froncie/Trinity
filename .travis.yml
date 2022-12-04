@@ -39,18 +39,18 @@ deploy:
     on:
       branch: main
 
-  # - provider: codedeploy
-  #   access_key_id: $AWS_ACCESS_KEY
-  #   secret_access_key: $AWS_SECRET_KEY
-  #   bucket: trinity-springboot-build # S3 버킷
-  #   key: trinity-springboot-webservice.zip
-  #   bundle_type: zip
-  #   application: trinity-springboot-webservice # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
-  #   deployment_group: trinity-springboot-webservice-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
-  #   region: ap-northeast-2
-  #   wait_until_deployed: true
-  #   on:
-  #     branch: main
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: trinity-springboot-build # S3 버킷
+    key: trinity-springboot-webservice.zip
+    bundle_type: zip
+    application: trinity-springboot-webservice # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+    deployment_group: trinity-springboot-webservice-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+    region: ap-northeast-2
+    wait_until_deployed: true
+    on:
+      branch: main
 
 # CI 실행 완료 시 슬랙 알람
 notifications:
