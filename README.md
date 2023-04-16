@@ -1,4 +1,4 @@
-# Trinity - Centralized logging system and response system using Elastic Stack
+# Trinity - Centralized log analysis and response system using Elastic Stack
 
 ![image 001](https://user-images.githubusercontent.com/102707632/232323491-2ab01149-2293-4a69-86b1-82adcdf775f9.jpeg)
 
