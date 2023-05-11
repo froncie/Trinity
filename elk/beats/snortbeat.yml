@@ -1,0 +1,13 @@
+filebeat.inputs:
+        - type : log
+          paths:
+		# Paths of files to send to logstash
+                  - /var/log/snort/alert
+
+	# Multi-line configuration
+          multiline.pattern: '^\[\*\*\]'
+          multiline.negate: true
+          multiline.match: after
+
+output.logstash:
+        hosts: ["{IP Address of Logstash}:5044"]
