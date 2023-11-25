@@ -47,7 +47,7 @@
 
 ### 3. Conclusion
 
-![images 020](https://user-images.githubusercontent.com/102707632/232324181-09472dde-3047-4e06-9046-9ad4f7040a95.jpeg)
+![images 020](https://github.com/hejhs/Trinity/assets/102707632/1fa18192-f157-4e2c-865e-9f578c6e6233)
 
 https://github.com/parkuijin/TrinityBackend.git
 
